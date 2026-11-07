@@ -1,0 +1,42 @@
+name: Submit or update an event
+description: Share public organizer information for moderator review. This does not publish an event.
+title: '[Event review] '
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: 'Public submissions only. Do not include private messages, contact details, attendee lists, or private Discord links. A moderator must verify the event before publication.'
+  - type: dropdown
+    id: change
+    attributes:
+      label: Request
+      options: [New event, Correction, Cancellation]
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Public organizer source URL
+      description: A public announcement or organizer page containing the event details.
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Event name or existing event ID
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Public details or corrections
+      description: Include public venue/address, date, Indianapolis local start/end times, type, format, fee and registration link where available. State what is unknown; do not guess.
+    validations:
+      required: true
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Review acknowledgement
+      options:
+        - label: I understand this submission is public and requires moderator review before listing.
+          required: true
