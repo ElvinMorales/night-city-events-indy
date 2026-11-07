@@ -30,7 +30,7 @@ body:
     id: details
     attributes:
       label: Public details or corrections
-      description: Include public venue/address, date, Indianapolis local start/end times, type, format, fee and registration link where available. State what is unknown; do not guess.
+      description: Include public venue/address, date, Indianapolis local start time and end time if known, type, format, fee and registration link where available. State what is unknown; do not guess.
     validations:
       required: true
   - type: checkboxes

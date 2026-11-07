@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "nlg-carmel-2026-11-10-cyberpunk",
+    "name": "Cyberpunk TCG - Night City Brawl",
+    "type": "Tournament",
+    "venue": "Next Level Games Carmel",
+    "address": "14560 River Rd, Suite 130, Carmel, IN 46033",
+    "lat": 39.998616,
+    "lng": -86.034339,
+    "start": "2026-11-10T18:00:00-05:00",
+    "timezone": "America/Indiana/Indianapolis",
+    "format": "1v1 Constructed; Swiss; best-of-three",
+    "fee": "$11",
+    "registrationUrl": "https://www.nextlevelgames.store/events?location=carmel",
+    "sourceUrl": "https://www.nextlevelgames.store/events?location=carmel",
+    "lastVerified": "2026-11-07T13:01:37.376Z",
+    "status": "confirmed",
+    "sample": false,
+    "description": "Organizer calendar lists this November 10 occurrence. End time is unknown. The public Carmel calendar is the reservation entry point; select the dated Cyberpunk TCG card. Availability can change.",
+    "updatedAt": "2026-11-07T13:03:06.971Z"
+  }
+]

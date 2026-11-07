@@ -1,5 +1,7 @@
 # Phase 3A event source report
 
+Historical snapshot: [Phase 3B](PHASE-3B-REPORT.md) rechecks the four urgent leads, separates occurrence confirmation from feature completeness, and supersedes this report’s end-required/empty-review-array conclusions.
+
 Research date: **2026-11-07 UTC** (the evening of November 6 in Indianapolis). Public-source checks ran from **2026-11-07T01:29:00Z through 2026-11-07T01:33:57Z**. Times below are actual access/check times from this run, not search-engine crawl dates, publication dates, or invented moderator verification times. Browser timestamps identify when navigation/checking began; the directory snapshot has its completion timestamp.
 
 ## Outcome and publication boundary

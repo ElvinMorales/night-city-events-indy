@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import samples from './data/samples.json';
 import realCatalog from './data/events.json';
+import reviewCatalog from '../docs/review/events.candidates.json';
 import { eventSchema, deduplicate, filterEvents, ics, type Event } from './events';
 import { loadCatalog, verification, duplicateCandidates } from './catalog';
 const now = new Date('2026-11-21T12:00:00Z');
@@ -75,5 +76,38 @@ describe('moderator revision checks', () => {
     expect(duplicateCandidates([real, copy])).toHaveLength(1);
     expect(duplicateCandidates([real, { ...copy, start: '2026-12-13T18:00:00-05:00' }])).toEqual([]);
     expect(duplicateCandidates([real, cancelled])).toEqual([]);
+  });
+});
+
+describe('confirmation independent of feature completeness',()=>{
+  const unknown:Event={...real,end:undefined};
+  it('accepts confirmed occurrences without an end but retains verification requirements',()=>{
+    expect(loadCatalog([unknown],{now}).errors).toEqual([]);
+    expect(verification(unknown,now).label).toBe('Organizer confirmed');
+    expect(loadCatalog([{...unknown,lastVerified:null}],{now}).errors.length).toBeGreaterThan(0);
+    expect(verification({...unknown,lastVerified:'2026-11-07T12:00:00Z'},now).stale).toBe(true);
+    expect(loadCatalog([{...unknown,sample:true}],{allowSamples:true,now}).events).toEqual([]);
+  });
+  it('retains cancellations through the start date and preserves identity without an end',()=>{
+    const cancelled:Event={...unknown,status:'cancelled',updatedAt:unknown.updatedAt};
+    for(const revisions of [[unknown,cancelled],[cancelled,unknown]]){
+      expect(deduplicate(revisions)).toEqual([cancelled]);
+      expect(filterEvents(revisions,filters,new Date('2026-11-14T04:59:59Z'))).toEqual([cancelled]);
+      expect(filterEvents(revisions,filters,new Date('2026-11-14T05:00:00Z'))).toEqual([]);
+    }
+    expect(verification(cancelled,now).label).toBe('Cancelled');
+    const reinstated={...unknown,updatedAt:'2026-11-10T00:00:00Z'};
+    expect(deduplicate([cancelled,reinstated])).toEqual([reinstated]);
+    expect(duplicateCandidates([unknown,{...unknown,id:'copy'}])).toHaveLength(1);
+    expect(duplicateCandidates([unknown,{...unknown,id:'next-week',start:'2026-11-20T18:00:00-05:00'}])).toEqual([]);
+  });
+});
+
+describe('review-only catalog safeguards',()=>{
+  it('validates review records and checks duplicates against production without promoting them',()=>{
+    const review=loadCatalog(reviewCatalog);
+    const production=loadCatalog(realCatalog);
+    expect(review.errors).toEqual([]);
+    expect(duplicateCandidates([...production.events,...review.events])).toEqual([]);
   });
 });

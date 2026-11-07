@@ -1,0 +1,10 @@
+# Community verification request — moderator draft, not sent
+
+Could someone share current **public organizer evidence** for these Indy-area **Cyberpunk TCG** events? Please check in this order; these are research leads, not a published schedule:
+
+1. **Mage's, Sat Nov 7, 2026, claimed 1 PM EST:** [game listing](https://cyberpunktcg.com/stores/9da8f058-8bf2-47ed-879c-016126b3d427), [Melee 495512](https://melee.gg/Tournament/View/495512). Is this specific occurrence still scheduled? The store calendar shows other games; confirm the full year/date and game.
+2. **Good Games Indy, Sun Nov 8, claimed 2 PM EST:** [game listing](https://cyberpunktcg.com/stores/a90753e1-cff0-498b-9ee0-2d1652fa7a84), [Melee 460450](https://melee.gg/Tournament/View/460450). Confirm Cyberpunk separately from the organizer's noon Riftbound Nexus Nights listing; we also need the full year and fee if stated.
+3. **Next Level Games Carmel, Tue Nov 10, 2026, 6 PM EST:** [organizer calendar](https://www.nextlevelgames.store/events?location=carmel). The Cyberpunk occurrence is organizer-confirmed. Is an end time or separate dated registration permalink available? An unknown end does not undo confirmation.
+4. **Bulldog, Thu Nov 12, claimed 6:30 PM EST:** [game listing](https://cyberpunktcg.com/stores/fe84ab19-c14f-4551-ad1e-9c0880646a19), [Melee 488751](https://melee.gg/Tournament/View/488751). Confirm that “NCB 1” is Cyberpunk TCG, full year/date and current schedule; the organizer calendar has no posted dates. Confirm Suite 302.
+
+For each, please return a public source URL, actual check date/time, game, full occurrence date, local start/timezone, venue/address, format, fee if stated, registration entry point and any cancellation/reschedule notice. Include the end **only if the organizer states one**; otherwise say unknown. Don't estimate from opening hours or rounds, or send attendee information/private messages. Also flag whether Mage's November 28 Brawl and Showdown at the same time are separate or replacement listings. This request makes no reservations or publication promises.

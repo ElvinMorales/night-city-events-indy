@@ -8,7 +8,7 @@ The real catalog (`src/data/events.json`) is intentionally empty. No real events
 
 The current active copy is **`/home/agentdev/projects/night-city-events`**, owned by `agentdev`. The original under `/root` is an unchanged pre-Phase-2 copy; do not continue development there. See [workspace and launch instructions](docs/LAUNCH.md).
 
-Phase 3A public-source research is recorded in [the event source report](docs/EVENT-SOURCE-REPORT.md), with [results and validation](docs/PHASE-3A-REPORT.md). Incomplete leads remain in the report. The separate [review-only candidate file](docs/review/events.candidates.json) is empty because no researched occurrence met all verification requirements; it is not loaded by the application.
+Phase 3A public-source research is recorded in [the event source report](docs/EVENT-SOURCE-REPORT.md), with [results and validation](docs/PHASE-3A-REPORT.md). Incomplete leads remain in the report. Phase 3B rechecks the four urgent leads and supports optional end times; see [the Phase 3B report](docs/PHASE-3B-REPORT.md). The [review-only candidate file](docs/review/events.candidates.json) now contains one organizer-confirmed Carmel occurrence with an unknown end. It is not loaded by the application; production remains empty.
 
 ## Development
 
@@ -43,9 +43,9 @@ Distance is straight-line miles from downtown Indianapolis (39.7684, −86.1581)
 
 Read the [verification policy](docs/VERIFICATION.md) before adding real listings. Prefer public organizer-confirmed evidence. Do not scrape authenticated pages or private Discord channels, publish private attendee information, or assume Melee API access.
 
-Each record needs a stable ID, name/type, public venue/address and coordinates, offset-bearing start/end, Indianapolis timezone, format, registration/source HTTP(S) URLs, status, sample flag, description, and `updatedAt`. Entry fee is optional. `lastVerified` is a full ISO timestamp with offset, or `null` for never-verified unverified events; confirmed records require a timestamp. Older date-only verification fields must be migrated honestly from actual evidence, not assigned an invented check time.
+Each record needs a stable ID, name/type, public venue/address and coordinates, an offset-bearing start and optional end, Indianapolis timezone, format, registration/source HTTP(S) URLs, status, sample flag, description, and `updatedAt`. Entry fee is optional. Omit unknown ends; never infer a duration. Missing an end does not by itself change occurrence confirmation. `lastVerified` is a full ISO timestamp with offset, or `null` for never-verified unverified events; confirmed records require a timestamp. Older date-only verification fields must be migrated honestly from actual evidence, not assigned an invented check time.
 
-Confirmation becomes stale after 14 days and is visibly marked out of date. Cards show verification timestamps and source links; details show the full source URL. Cancelled records remain visible until their scheduled end. Duplicate revisions retain the newest timestamp; cancellation wins timestamp ties. Cross-ID duplicate suggestions are advisory and require manual review.
+Confirmation becomes stale after 14 days and is visibly marked out of date. Cards show verification timestamps and source links; details show the full source URL. Known-end records leave Upcoming at their end. Unknown-end records, including cancellations, remain through the Indianapolis start date; after start they show an explicit warning and leave Upcoming the next local day. This is a visibility rule, not an assumed end. The UI refreshes every 30 seconds and on focus/visibility changes. Duplicate revisions retain the newest timestamp; cancellation wins timestamp ties. Cross-ID duplicate suggestions are advisory and require manual review.
 
 Invalid JSON fails the build. Structurally invalid data is rejected by the build check and has an explanatory runtime error state. No partial catalog is shown when validation fails.
 
@@ -59,7 +59,7 @@ The JSON download remains a fallback for sharing through an existing moderator c
 
 ## Calendar downloads
 
-ICS exports UTC instants, escaped/folded text, stable UIDs and tentative/confirmed/cancelled status. Fictional samples are labeled and cannot export confirmed status. Retain IDs when updating or cancelling. Downloads are not live subscriptions; import/update behavior varies between calendar clients.
+ICS requires a known end: unknown-end downloads are disabled with an explanation and the generator rejects them, including cancellations. No duration is invented. Eligible ICS exports UTC instants, escaped/folded text, stable UIDs and tentative/confirmed/cancelled status. Fictional samples are labeled and cannot export confirmed status. Retain IDs when updating or cancelling. Downloads are not live subscriptions; import/update behavior varies between calendar clients.
 
 ## Static deployment
 

@@ -1,8 +1,10 @@
 # Review-only event candidates
 
-`events.candidates.json` is a JSON array of complete records following the existing `src/events.ts` Zod schema. It is outside the application source and is not a publication queue processed by automation.
+`events.candidates.json` is a JSON array of schema-valid records following the `src/events.ts` Zod schema. It is outside the application source and is not a publication queue processed by automation.
 
-The Phase 3A file is intentionally **empty**. All discovered occurrences lack required verification facts or link checks; incomplete leads belong in [`../EVENT-SOURCE-REPORT.md`](../EVENT-SOURCE-REPORT.md), not this array. Do not fill required fields with placeholders or estimated end times.
+Phase 3B contains **one confirmed occurrence**, Next Level Games Carmel on November 10, 2026. It is ready for list/month/detail review with an unknown end; ICS is unavailable. This is **not publication**. Evidence, link limitations and outstanding leads are in [`../PHASE-3B-REPORT.md`](../PHASE-3B-REPORT.md). Phase 3A's empty-array statements describe that earlier snapshot.
+
+Assess occurrence confirmation separately from feature completeness. Omit an unknown `end`; never supply a placeholder or estimate. Records still missing occurrence evidence or other required fields stay in the reports, not this array. Recheck evidence before any later promotion.
 
 From the project root, validate candidates without touching production:
 
