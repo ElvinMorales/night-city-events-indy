@@ -1,0 +1,85 @@
+{
+  "scope": "Public unauthenticated browser recheck; no registration actions. Times are actual observations, not crawl dates. Original Phase 3B files unchanged.",
+  "checks": [
+    {
+      "id": "carmel",
+      "url": "https://www.nextlevelgames.store/events?location=carmel",
+      "requestedAt": "2026-11-07T14:17:38.505Z",
+      "checkedAt": "2026-11-07T14:17:43.884Z",
+      "status": 200,
+      "observedFacts": {
+        "date": "2026-11-10",
+        "localStart": "18:00",
+        "timezone": "America/Indiana/Indianapolis",
+        "venue": "Next Level Games Carmel",
+        "address": "14560 River Rd, Ste 130, Carmel, IN 46033",
+        "game": "Cyberpunk TCG",
+        "title": "Cyberpunk TCG - Night City Brawl",
+        "fee": "$11",
+        "format": "1v1 Constructed; Swiss; best-of-three",
+        "end": null,
+        "reservationEntryPoint": "Enabled Reserve Your Seat button on dated calendar card; not clicked",
+        "cancellationNoticeObserved": false
+      },
+      "previousLastVerified": "2026-11-07T13:01:37.376Z",
+      "previousUpdatedAt": "2026-11-07T13:03:06.971Z",
+      "decision": "Listing-ready; no relevant change from Phase 3B. No inferred recurrence. No cancellation notice on inspected page; not a guarantee against later changes."
+    },
+    {
+      "id": "carmel-venue",
+      "url": "https://cyberpunktcg.com/stores/11e1fd26-7413-49dc-83fa-d6a9dbdb1fdb",
+      "requestedAt": "2026-11-07T14:17:38.484Z",
+      "checkedAt": "2026-11-07T14:17:46.186Z",
+      "status": 200,
+      "decision": "Public address still agrees; no linked Melee events. Coordinates retained from Phase 3B public map evidence."
+    },
+    {
+      "id": "good-feed",
+      "url": "https://cyberpunktcg.com/stores/a90753e1-cff0-498b-9ee0-2d1652fa7a84",
+      "requestedAt": "2026-11-07T14:17:38.533Z",
+      "checkedAt": "2026-11-07T14:17:46.310Z",
+      "status": 200,
+      "decision": "November 8 Cyberpunk weekly listing still says 2 PM EST, constructed, fee TBD. Year and end absent. No promotion."
+    },
+    {
+      "id": "good-calendar",
+      "url": "https://www.goodgamesna.com/events/month/2026-11/",
+      "requestedAt": "2026-11-07T14:17:38.559Z",
+      "checkedAt": "2026-11-07T14:17:52.458Z",
+      "status": 200,
+      "decision": "November 2026 rendered month has no Cyberpunk text; some dates collapsed. Omission is not cancellation. No unrelated event accepted as corroboration."
+    },
+    {
+      "id": "good-registration",
+      "url": "https://melee.gg/Tournament/View/460450",
+      "requestedAt": "2026-11-07T14:17:38.533Z",
+      "checkedAt": "2026-11-07T14:17:43.791Z",
+      "status": 403,
+      "decision": "403 Forbidden; stopped without bypass. Current full occurrence not verified."
+    },
+    {
+      "id": "bulldog-feed",
+      "url": "https://cyberpunktcg.com/stores/fe84ab19-c14f-4551-ad1e-9c0880646a19",
+      "requestedAt": "2026-11-07T14:17:38.533Z",
+      "checkedAt": "2026-11-07T14:17:45.968Z",
+      "status": 200,
+      "decision": "November 12 NCB 1 still says 6:30 PM EST, constructed, $5. Year/end absent and abbreviated title insufficient independent game identity. No promotion."
+    },
+    {
+      "id": "bulldog-calendar",
+      "url": "https://bulldogcommunitygaming.com/events",
+      "requestedAt": "2026-11-07T14:17:38.581Z",
+      "checkedAt": "2026-11-07T14:17:44.455Z",
+      "status": 200,
+      "decision": "No upcoming dates posted. Not evidence of cancellation."
+    },
+    {
+      "id": "bulldog-registration",
+      "url": "https://melee.gg/Tournament/View/488751",
+      "requestedAt": "2026-11-07T14:17:38.604Z",
+      "checkedAt": "2026-11-07T14:17:43.747Z",
+      "status": 403,
+      "decision": "403 Forbidden; stopped without bypass. Current full occurrence not verified."
+    }
+  ]
+}

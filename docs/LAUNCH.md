@@ -20,15 +20,17 @@ Alternatively, log in through your existing non-root access method. No new login
 
 Development and production preview bind to `127.0.0.1`. Do not override with `--host 0.0.0.0`, add port forwarding, or configure a tunnel for ordinary local work. Binding locally does not audit unrelated reverse proxies or host infrastructure. Existing unrelated host services were not changed.
 
-## Submission choice (launch blocker)
+## Submission choice (endpoint still a launch blocker)
 
 Recommended minimal-maintenance workflow: use the free GitHub issue form already included at `.github/ISSUE_TEMPLATE/event.yml` when an authorized repository exists. A contributor can paste a public organizer URL and basic details; a moderator verifies and updates JSON through GitHub's editor. GitHub accounts are required to file issues, but browsing the calendar remains account-free. Submissions and discussion will be public.
 
 No repository or issue endpoint has been created. After authorization and creation, configure `submissionUrl` in `src/config.ts` to the repository's issue-form link. Until then the UI explicitly states that no submission destination is configured. The existing local JSON download remains available as a fallback but does not deliver or store anything online. If GitHub is unsuitable for the community, choose an existing moderator contact channel and document it; do not add a backend just to receive a handful of URLs. Do not invent a contact address.
 
+The proposed single-maintainer workflow, weekly budget, cancellation instructions, and unsent moderator introduction are in [COMMUNITY-OPERATIONS.md](COMMUNITY-OPERATIONS.md). Phase 3C results and remaining manual checks are in [PHASE-3C-REPORT.md](PHASE-3C-REPORT.md) and [qa/PHASE-3C.md](qa/PHASE-3C.md). The process is drafted; the actual owner and endpoint still need selection.
+
 ## Before deployment
 
-- [ ] Choose a maintainer and backup moderator, an actual submission destination, and a cancellation-report process.
+- [ ] Name the maintainer (backup optional for the small pilot), configure an actual submission destination, and adopt/test the cancellation-report process.
 - [ ] Decide repository ownership and visibility; obtain authorization before creating public resources.
 - [ ] Review MIT licensing and fan-project disclaimer.
 - [ ] Review `docs/VERIFICATION.md`. Start with an empty real catalog if no verified events exist.
@@ -42,7 +44,9 @@ No repository or issue endpoint has been created. After authorization and creati
 
 GitHub Actions checks pushes and PRs; it does not deploy. Production build runs catalog validation. Invalid JSON fails the build; structurally invalid data also has a runtime error state instead of a blank application. The entire catalog is withheld when validation fails to avoid partial or misleading listings.
 
-## Manual browser checks still required
+## Browser acceptance checklist
+
+Phase 3C completed available Chromium keyboard, responsive and axe checks; the linked QA report distinguishes those results from unperformed human screen-reader, touch and calendar-client checks. Re-run relevant checks on the authorized deployment.
 
 - At 320, 375, 390 and 768 CSS pixels: no page-level horizontal overflow; readable cards and forms; calendar can scroll within its region; all controls usable by touch.
 - Keyboard: skip link reaches events; every control is reachable; focus stays visible; Enter/Space activates controls; native dialog traps focus; Escape closes it and focus returns to its trigger.

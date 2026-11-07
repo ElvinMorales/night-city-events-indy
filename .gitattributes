@@ -1,0 +1,2 @@
+# Keep generated calendar fixtures byte-exact, including required CRLF endings.
+docs/qa/calendar/*.ics -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

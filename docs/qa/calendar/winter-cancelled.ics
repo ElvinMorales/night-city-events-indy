@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Night City Events Indy//EN
+BEGIN:VEVENT
+UID:qa-only-ics-winter@nightcityevents.example
+DTSTAMP:20261107T140100Z
+DTSTART:20261113T230000Z
+DTEND:20261114T020000Z
+SUMMARY:TEST ONLY — Night City calendar import
+LOCATION:Fictional QA venue\, 123 Example Street (fictional\; do not trav
+ el)
+DESCRIPTION:SYNTHETIC QA FIXTURE. Not an event. Import only into a dispos
+ able local test calendar\, then delete. Never publish. | America/Indiana/
+ Indianapolis | Source: https://example.com/qa
+STATUS:CANCELLED
+END:VEVENT
+END:VCALENDAR
