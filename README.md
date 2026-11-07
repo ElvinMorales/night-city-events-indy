@@ -8,6 +8,8 @@ The real catalog (`src/data/events.json`) is intentionally empty. No real events
 
 The current active copy is **`/home/agentdev/projects/night-city-events`**, owned by `agentdev`. The original under `/root` is an unchanged pre-Phase-2 copy; do not continue development there. See [workspace and launch instructions](docs/LAUNCH.md).
 
+Phase 3A public-source research is recorded in [the event source report](docs/EVENT-SOURCE-REPORT.md), with [results and validation](docs/PHASE-3A-REPORT.md). Incomplete leads remain in the report. The separate [review-only candidate file](docs/review/events.candidates.json) is empty because no researched occurrence met all verification requirements; it is not loaded by the application.
+
 ## Development
 
 Use a non-root account and Node.js 22 or newer (local checks used Node 26.8.1).

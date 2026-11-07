@@ -1,3 +1,17 @@
 node_modules/
 dist/
 *.tsbuildinfo
+
+# Local credentials and machine-specific settings
+.env
+.env.*
+!.env.example
+*.local
+
+# Generated development and verification artifacts
+*.log
+coverage/
+.vite/
+playwright-report/
+test-results/
+.DS_Store
