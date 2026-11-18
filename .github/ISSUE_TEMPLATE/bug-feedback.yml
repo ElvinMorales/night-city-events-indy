@@ -1,0 +1,40 @@
+name: Report a bug or suggest an improvement
+description: Help improve the Night City Events calendar.
+title: '[Feedback] '
+body:
+  - type: markdown
+    attributes:
+      value: 'Thanks for helping improve this unofficial fan calendar! For missing events, schedule corrections or cancellations, use the event submission form instead. Issues are public; do not share private information, credentials or private Discord messages.'
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of feedback is this?
+      options:
+        - Bug or broken link
+        - Feature suggestion
+        - Usability or accessibility
+        - Other feedback
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Tell us what happened or what would help
+      description: For a bug, describe what you expected, what happened, and how to reproduce it if you can.
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Page or event link (optional)
+      description: Paste a relevant public page or event URL.
+  - type: input
+    id: device
+    attributes:
+      label: Browser and device (optional)
+      placeholder: iPhone / Safari, Windows / Chrome, etc.
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or extra context (optional)
+      description: Remove any personal information before attaching screenshots.
