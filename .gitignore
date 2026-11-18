@@ -15,3 +15,8 @@ coverage/
 playwright-report/
 test-results/
 .DS_Store
+
+# Existing, untracked moderator media stays local unless separately approved.
+# This does not hide or remove the already-tracked research/review history.
+/docs/MODERATOR-PREVIEW.md
+/docs/moderator-preview/

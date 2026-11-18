@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "cyberpunk-night-city-showdown-indianapolis-2026-11-21",
+    "name": "The First Night City Showdown at Books & Brews",
+    "venue": "Books & Brews",
+    "address": "9402 Uptown Dr, Suite 1400, Indianapolis, IN 46256",
+    "start": "2026-11-21T17:00:00-05:00",
+    "timezone": "America/Indiana/Indianapolis",
+    "fee": "$10",
+    "sourceUrl": "https://melee.gg/Tournament/View/480151",
+    "description": "Books & Brews lists a tabletop Cyberpunk TCG tournament. Melee showed Open Registration when checked, with a $10 fee paid outside Melee. Sign-in or account creation is offered on the listing. End time is unknown.",
+    "lastVerified": "2026-11-18T16:41:26.412Z",
+    "updatedAt": "2026-11-18T16:44:25.181Z",
+    "status": "confirmed",
+    "sample": false,
+    "type": "Tournament",
+    "format": "Constructed",
+    "registrationUrl": "https://melee.gg/Tournament/View/480151",
+    "lat": 39.92424,
+    "lng": -86.03643
+  }
+]

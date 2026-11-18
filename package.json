@@ -6,11 +6,12 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "npm run check:catalog && tsc -b && vite build",
+    "build": "npm run check:catalog && tsc -b && vite build && npm run check:pages",
     "test": "vitest run",
     "preview": "vite preview --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
-    "check:catalog": "tsx scripts/check-catalog.ts"
+    "check:catalog": "tsx scripts/check-catalog.ts",
+    "check:pages": "node scripts/check-pages-artifact.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.0",
+    "@types/node": "^22.20.5",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.1.0",

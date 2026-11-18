@@ -4,11 +4,11 @@ Unofficial, MIT-licensed community calendar for Indianapolis-area Cyberpunk TCG 
 
 ## Current launch state
 
-The real catalog (`src/data/events.json`) is intentionally empty. No real events or venues have been invented. Fictional fixtures live separately in `src/data/samples.json` and can only be viewed at `http://127.0.0.1:5173/?demo=1` during development. Production ignores `?demo=1`. The real-catalog loader/build reject sample records, and samples can never have confirmed status.
+The real catalog (`src/data/events.json`) contains the approved Books & Brews tournament. Fictional fixtures live separately in `src/data/samples.json` and can only be viewed at `http://127.0.0.1:5173/night-city-events-indy/?demo=1` during development. Production ignores `?demo=1`. The real-catalog loader/build reject sample records, and samples can never have confirmed status. The build also rejects known fixture identities relabeled `sample: false`, placeholder source/registration URLs, and imports of review/demo/test content.
 
 The current active copy is **`/home/agentdev/projects/night-city-events`**, owned by `agentdev`. The original under `/root` is an unchanged pre-Phase-2 copy; do not continue development there. See [workspace and launch instructions](docs/LAUNCH.md).
 
-Phase 3A public-source research is recorded in [the event source report](docs/EVENT-SOURCE-REPORT.md), with [results and validation](docs/PHASE-3A-REPORT.md). Incomplete leads remain in the report. Phase 3B rechecks the four urgent leads and supports optional end times; see [the Phase 3B report](docs/PHASE-3B-REPORT.md). The [review-only candidate file](docs/review/events.candidates.json) now contains one organizer-confirmed Carmel occurrence with an unknown end. It is not loaded by the application; production remains empty.
+Phase 3A public-source research is recorded in [the event source report](docs/EVENT-SOURCE-REPORT.md), with [results and validation](docs/PHASE-3A-REPORT.md). Incomplete leads remain in the report. Phase 3B rechecks the four urgent leads and supports optional end times; see [the Phase 3B report](docs/PHASE-3B-REPORT.md). The [review-only candidate file](docs/review/events.candidates.json) now contains one organizer-confirmed Carmel occurrence with an unknown end. It is not loaded by the application; the production catalog is maintained separately.
 
 ## Development
 
@@ -36,6 +36,8 @@ Development and preview bind to **127.0.0.1**, not all network interfaces. Do no
 - `src/data/samples.json`: clearly fictional development fixtures, not publishable events.
 - `scripts/check-catalog.ts`: validates catalog and reports candidate duplicates without auto-merging.
 - `.github/workflows/checks.yml`: tests, type checking and production build; no deployment.
+- `.github/workflows/pages.yml`: separate, manually dispatched Pages build/deployment from the repository's default branch; only `dist/` is uploaded.
+- `scripts/check-pages-artifact.mjs`: verifies the Pages asset prefix and excludes unexpected files, demo records and unpromoted candidate IDs from `dist/`.
 
 Distance is straight-line miles from downtown Indianapolis (39.7684, −86.1581), default 40 miles. Date grouping and display use `America/Indiana/Indianapolis`, independent of the device timezone. Calendar layout can scroll horizontally within its region on small screens.
 
@@ -53,7 +55,7 @@ Invalid JSON fails the build. Structurally invalid data is rejected by the build
 
 The JSON form **only downloads a local file**. It does not send, save online, or publish anything. There is currently no configured inbox or public submission endpoint; the interface says so explicitly.
 
-Recommended low-maintenance option: once a repository is authorized, use the included [GitHub issue form](.github/ISSUE_TEMPLATE/event.yml). Contributors submit a public organizer URL and basic facts; moderators verify and edit JSON through GitHub's web editor. Configure its real URL in `src/config.ts` after the destination exists. No public repository or other resource has been created. GitHub requires an account to submit issues, but calendar browsing remains account-free.
+Recommended low-maintenance option: once the existing repository is identified and approved for use, use the included [GitHub issue form](.github/ISSUE_TEMPLATE/event.yml). Contributors submit a public organizer URL and basic facts; moderators verify and edit JSON through GitHub's web editor or use [the Codex event-update workflow](docs/UPDATING-EVENTS.md). Configure its real URL in `src/config.ts` after the destination is verified. No repository or other public resource has been created by this preparation. GitHub requires an account to submit issues, but calendar browsing remains account-free.
 
 The JSON download remains a fallback for sharing through an existing moderator contact. Before publishing a submission, resolve Indianapolis wall times to explicit offsets, supply checked coordinates/verification metadata, assign an ID and review duplicates. Unreviewed submissions are not catalog-ready.
 
@@ -63,9 +65,9 @@ ICS requires a known end: unknown-end downloads are disabled with an explanation
 
 ## Static deployment
 
-No public deployment has been performed. Obtain authorization first and complete the [first-deployment checklist and manual browser checks](docs/LAUNCH.md).
+Publish from `main` using the **Publish GitHub Pages** workflow after selecting **GitHub Actions** under **Settings → Pages**. The workflow requires the verified commit SHA and uploads only the production artifact.
 
-Build command: `npm run build`; output: `dist/`; Node: 22+. Upload only `dist/` to an authorized static host. Vite uses relative asset paths for subpath hosting. No secrets, server routes, database or SPA redirect rules are required. CI checks pushes/PRs and does not publish.
+Build command: `npm run build`; output: `dist/`; CI Node: 22. Vite uses the explicit `/night-city-events-indy/` base for a project Pages site. After building, `npm run preview` serves `http://127.0.0.1:4173/night-city-events-indy/`. Upload only `dist/`. No secrets, server routes, database or SPA redirect rules are required. Ordinary pushes/PRs run checks and do not publish; publishing requires a separate manual workflow dispatch. `public/` copying and source maps are disabled. A production build refuses development mode or `NODE_ENV=development`.
 
 Tests cover schema rejection, real/sample separation, empty/invalid catalogs, stale verification boundaries, filtering, timezone grouping, distance, duplicate candidates, cancellation revisions and ICS output. Native modal semantics, skip navigation, visible focus and reduced-motion styles are included. Visual mobile, keyboard and assistive-technology checks remain manual requirements; automated tests do not prove full accessibility.
 
