@@ -1,3 +1,2 @@
-// Set only after the community chooses a public, free submission destination.
-// Recommended: the repository's GitHub issue form. Never put credentials here.
-export const submissionUrl: string | null = null;
+export const submissionUrl: string | null =
+  'https://github.com/ElvinMorales/night-city-events-indy/issues/new?template=event.yml';

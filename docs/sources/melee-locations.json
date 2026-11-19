@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 1,
+  "locations": [
+    {
+      "key": "good-games-indianapolis",
+      "name": "Good Games Indianapolis",
+      "city": "Indianapolis",
+      "state": "IN",
+      "address": "111 S Meridian St, Indianapolis, IN 46225",
+      "lat": 39.7651812,
+      "lng": -86.1575896,
+      "meleeLocationId": 690,
+      "meleeLocationUrl": "https://melee.gg/Location/View/690",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/a90753e1-cff0-498b-9ee0-2d1652fa7a84"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/690",
+        "at": "2026-11-19T12:00:14Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/a90753e1-cff0-498b-9ee0-2d1652fa7a84",
+      "lastLocatorCheck": "2026-11-19T12:01:42.100Z",
+      "organizerUrl": "https://www.goodgamesna.com/events/"
+    },
+    {
+      "key": "mages-comics",
+      "name": "Mage's Comics",
+      "city": "Indianapolis",
+      "state": "IN",
+      "address": "7623 Shelby St, Indianapolis, IN 46227",
+      "lat": 39.6559692,
+      "lng": -86.1372395,
+      "meleeLocationId": 18840,
+      "meleeLocationUrl": "https://melee.gg/Location/View/18840",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/9da8f058-8bf2-47ed-879c-016126b3d427"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/18840",
+        "at": "2026-11-19T12:00:14Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/9da8f058-8bf2-47ed-879c-016126b3d427",
+      "lastLocatorCheck": "2026-11-19T12:01:40.716Z",
+      "organizerUrl": "https://www.magescomics.com/our-events"
+    },
+    {
+      "key": "books-and-brews",
+      "name": "Books & Brews",
+      "city": "Indianapolis",
+      "state": "IN",
+      "address": "9402 Uptown Dr, Suite 1400, Indianapolis, IN 46256",
+      "lat": 39.92424,
+      "lng": -86.03643,
+      "meleeLocationId": 18573,
+      "meleeLocationUrl": "https://melee.gg/Location/View/18573",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "src/data/events.json#cyberpunk-night-city-showdown-indianapolis-2026-11-21"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/18573",
+        "at": "2026-11-19T12:00:15Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/b6a316c1-fc7a-4cd0-b07d-82ee5c61ad2b",
+      "lastLocatorCheck": "2026-11-19T12:01:38.085Z",
+      "organizerUrl": "https://www.booksnbrews.com/mothership"
+    },
+    {
+      "key": "the-dugout",
+      "name": "The Dugout",
+      "city": "Indianapolis",
+      "state": "IN",
+      "address": "5707 W Morris St, Indianapolis, IN 46241",
+      "lat": 39.7500529,
+      "lng": -86.2576415,
+      "meleeLocationId": 18808,
+      "meleeLocationUrl": "https://melee.gg/Location/View/18808",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/779ace65-a0ec-4864-84ce-f310b2af81e3"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/18808",
+        "at": "2026-11-19T12:00:15Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/779ace65-a0ec-4864-84ce-f310b2af81e3",
+      "lastLocatorCheck": "2026-11-19T12:01:42.138Z"
+    },
+    {
+      "key": "atomic-planet-comics",
+      "name": "Atomic Planet Comics",
+      "city": "Fishers",
+      "state": "IN",
+      "address": "8906 E 96th St, Fishers, IN 46038",
+      "lat": 39.9278625,
+      "lng": -86.0116245,
+      "meleeLocationId": 8581,
+      "meleeLocationUrl": "https://melee.gg/Location/View/8581",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/4f9bc5f3-eb50-4772-9cbf-60ae64509cf0"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/8581",
+        "at": "2026-11-19T12:00:15Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/4f9bc5f3-eb50-4772-9cbf-60ae64509cf0",
+      "lastLocatorCheck": "2026-11-19T12:01:42.603Z"
+    },
+    {
+      "key": "heros-emporium",
+      "name": "Hero's Emporium",
+      "city": "Carmel",
+      "state": "IN",
+      "address": "12697 N Pennsylvania St, Carmel, IN 46032",
+      "lat": 39.972437,
+      "lng": -86.1545696,
+      "meleeLocationId": 10806,
+      "meleeLocationUrl": "https://melee.gg/Location/View/10806",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/5e513358-aedd-438b-8a74-850253c1dde7"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/10806",
+        "at": "2026-11-19T12:00:15Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/5e513358-aedd-438b-8a74-850253c1dde7",
+      "lastLocatorCheck": "2026-11-19T12:01:42.882Z"
+    },
+    {
+      "key": "next-level-games-carmel",
+      "name": "Next Level Games Carmel",
+      "city": "Carmel",
+      "state": "IN",
+      "address": "14560 River Rd, Suite 130, Carmel, IN 46033",
+      "lat": 39.998616,
+      "lng": -86.034339,
+      "meleeLocationId": 16968,
+      "meleeLocationUrl": "https://melee.gg/Location/View/16968",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/11e1fd26-7413-49dc-83fa-d6a9dbdb1fdb"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/16968",
+        "at": "2026-11-19T12:00:15Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/11e1fd26-7413-49dc-83fa-d6a9dbdb1fdb",
+      "lastLocatorCheck": "2026-11-19T12:01:40.217Z",
+      "organizerUrl": "https://www.nextlevelgames.store/events?location=carmel"
+    },
+    {
+      "key": "bulldog-community-gaming",
+      "name": "Bulldog Community Gaming",
+      "city": "Brownsburg",
+      "state": "IN",
+      "address": "1060 E Main St, Brownsburg, IN 46112",
+      "lat": 39.8366454,
+      "lng": -86.3788335,
+      "meleeLocationId": 12222,
+      "meleeLocationUrl": "https://melee.gg/Location/View/12222",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/fe84ab19-c14f-4551-ad1e-9c0880646a19"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/12222",
+        "at": "2026-11-19T12:00:15Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/fe84ab19-c14f-4551-ad1e-9c0880646a19",
+      "lastLocatorCheck": "2026-11-19T12:01:09.768Z",
+      "meleeHubUrl": "https://melee.gg/Hub/Location/12222"
+    },
+    {
+      "key": "tarnished-tabletop-gaming",
+      "name": "Tarnished Tabletop Gaming",
+      "city": "Columbus",
+      "state": "IN",
+      "address": "3920 25th St, Columbus, IN 47203",
+      "lat": 39.2247352,
+      "lng": -85.8767089,
+      "meleeLocationId": 4944,
+      "meleeLocationUrl": "https://melee.gg/Location/View/4944",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/055b6899-1495-4ced-a19e-33827d90b089"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/4944",
+        "at": "2026-11-19T12:00:16Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/055b6899-1495-4ced-a19e-33827d90b089",
+      "lastLocatorCheck": "2026-11-19T12:01:41.038Z"
+    },
+    {
+      "key": "the-kingdom-cards-and-games",
+      "name": "The Kingdom: Cards & Games",
+      "city": "Kokomo",
+      "state": "IN",
+      "address": "117 W Sycamore St, Kokomo, IN 46901",
+      "lat": 40.4862872,
+      "lng": -86.1320942,
+      "meleeLocationId": 5439,
+      "meleeLocationUrl": "https://melee.gg/Location/View/5439",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/61aaafa8-41cb-4384-9713-d5f0446b1bc7"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/5439",
+        "at": "2026-11-19T12:00:16Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/61aaafa8-41cb-4384-9713-d5f0446b1bc7",
+      "lastLocatorCheck": "2026-11-19T12:01:40.666Z"
+    },
+    {
+      "key": "alt-art-tcg",
+      "name": "Alt Art TCG",
+      "city": "Muncie",
+      "state": "IN",
+      "address": "1605 N Granville Ave, Muncie, IN 47303",
+      "lat": 40.2082047,
+      "lng": -85.3832155,
+      "meleeLocationId": 18389,
+      "meleeLocationUrl": "https://melee.gg/Location/View/18389",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/a4e053b6-8349-42f7-abec-e5d8468f927c"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/18389",
+        "at": "2026-11-19T12:00:16Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/a4e053b6-8349-42f7-abec-e5d8468f927c",
+      "lastLocatorCheck": "2026-11-19T12:01:38.740Z"
+    },
+    {
+      "key": "next-level-games-muncie",
+      "name": "Next Level Games Muncie",
+      "city": "Muncie",
+      "state": "IN",
+      "address": "406 E McGalliard Rd, Muncie, IN 47303",
+      "lat": 40.2196248,
+      "lng": -85.3827925,
+      "meleeLocationId": 1404,
+      "meleeLocationUrl": "https://melee.gg/Location/View/1404",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/d30fe4be-eea3-4bbf-8d9d-db6167903641",
+        "zip": "https://img.yugioh-card.com/en/downloads/ots/KonamiOTS_2026-0605.pdf"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/1404",
+        "at": "2026-11-19T12:00:16Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/d30fe4be-eea3-4bbf-8d9d-db6167903641",
+      "lastLocatorCheck": "2026-11-19T12:01:41.415Z",
+      "organizerUrl": "https://www.nextlevelgames.store/events?location=muncie",
+      "meleeHubUrl": "https://melee.gg/Hub/Location/1404",
+      "notes": "ZIP 47303 agrees with the official game locator and Konami tournament store list. Some organizer listings for other games print 47304."
+    },
+    {
+      "key": "top-level-trades",
+      "name": "Top Level Trades",
+      "city": "Lafayette",
+      "state": "IN",
+      "address": "525 Wabash Ave, Lafayette, IN 47905",
+      "lat": 40.4123003,
+      "lng": -86.896987,
+      "meleeLocationId": 17371,
+      "meleeLocationUrl": "https://melee.gg/Location/View/17371",
+      "activeDiscovery": true,
+      "provenance": {
+        "meleeLocationId": "User supplied on 2026-11-19",
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/d7d56818-052f-4f28-b02f-24610e142b96"
+      },
+      "lastSourceCheck": {
+        "url": "https://melee.gg/Location/View/17371",
+        "at": "2026-11-19T12:00:16Z",
+        "result": "Public page title matches venue. Schedule and street address were not present in the initial public page."
+      },
+      "officialStoreLocatorUrl": "https://cyberpunktcg.com/stores/d7d56818-052f-4f28-b02f-24610e142b96",
+      "lastLocatorCheck": "2026-11-19T12:01:42.859Z"
+    },
+    {
+      "key": "elf-n-moon",
+      "name": "Elf N Moon",
+      "city": "Indianapolis",
+      "state": "IN",
+      "address": "1354 Shelby St, Indianapolis, IN 46203",
+      "lat": 39.7487677,
+      "lng": -86.1399743,
+      "meleeLocationId": null,
+      "meleeLocationUrl": null,
+      "activeDiscovery": false,
+      "provenance": {
+        "addressAndCoordinates": "https://cyberpunktcg.com/stores/314ae54e-3c65-45f9-ade0-f23138f1a509",
+        "closureReport": "User reported closure on 2026-11-19"
+      },
+      "lastSourceCheck": {
+        "url": "https://elfnmoon.com/",
+        "at": "2026-11-19T12:02:10.015Z",
+        "result": "Store homepage announces closure November 21. Actual closure as of November 19 was not independently established."
+      },
+      "notes": "Historical listings and references remain in docs/EVENT-SOURCE-REPORT.md."
+    }
+  ]
+}

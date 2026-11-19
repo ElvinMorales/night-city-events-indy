@@ -17,6 +17,14 @@ Codex should:
 5. Preview at `http://127.0.0.1:4173/night-city-events-indy/` after `npm run preview`. Inspect list/calendar/details, date/time, source/registration links, verification status and any cancellation. Check `?demo=1` too. Unknown-end ICS must stay disabled. Upcoming hides past occurrences without deleting records.
 6. Report the exact change, verification evidence, unresolved facts and check results. Follow the user's publishing scope. For local-only preparation, stop with the reviewable diff. When separately authorized, integrate into the identified existing repository through its normal branch/PR process, then manually dispatch the separate Pages workflow. Ordinary source pushes do not update the site.
 
-No source mutation, issue closure or message is required just to prepare the update. Configure the actual community issue-form URL in `src/config.ts` only after the destination is verified and approved. Never place credentials or private attendee/contact information in JSON, evidence or prompts intended for the repository.
+No source mutation, issue closure or message is required just to prepare the update. The public submission form configured in `src/config.ts` opens the repository’s event issue template. Never place credentials or private attendee/contact information in JSON, evidence or prompts intended for the repository.
 
 If a check fails, correct the data or keep the event pending; do not remove the production/demo boundary to force a release. Schema checks cannot establish factual confirmation. An empty catalog is acceptable.
+
+## Bulk Melee discovery
+
+Start with [the Melee location directory](sources/melee-locations.json). Use records with `activeDiscovery: true`. A Melee Location/View ID identifies a venue. Organization and tournament IDs are separate. Check the public venue page, game locator, and any linked organizer calendar. Keep the actual source URL, check time and access result. A blocked or incomplete feed leaves schedule coverage unknown.
+
+Compare each dated occurrence with the production catalog by canonical ID, Melee tournament ID, venue and start. Keep the canonical ID and evidence history for corrections, reschedules and cancellations. Add verified occurrences within the requested date range. Leave unresolved leads and conflicts in `docs/review/`. Run the catalog check, tests, typecheck and build once for the completed batch, then prepare a single release for review.
+
+> Read docs/sources/melee-locations.json and docs/VERIFICATION.md. Check active venues' public sources for individually dated Cyberpunk TCG events through [date]. Compare against src/data/events.json, preserving canonical IDs and history. Prepare one local catalog update with verified facts and actual check times. Document blocked sources and unresolved leads in docs/review/. Run the catalog check, tests, typecheck and build. Report the diff and release readiness. Keep the work local.
