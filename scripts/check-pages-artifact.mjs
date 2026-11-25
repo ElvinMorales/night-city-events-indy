@@ -27,6 +27,9 @@ for (const file of files) {
   assert(file === 'index.html' || /^assets\/[\w-]+\.(js|css)$/.test(file), `Unexpected public artifact: ${file}`);
   const text = fs.readFileSync(path.join(dist, file), 'utf8');
   for (const value of forbidden) assert(!text.includes(value), `Review/demo record leaked into ${file}: ${value}`);
+  for (const marker of ['tailscale-user-login', 'indy-github-token', 'INDY_GITHUB_PUBLICATION', '/var/lib/indy-discovery', 'lastSuccessfulReview']) {
+    assert(!text.includes(marker), `Moderator tooling leaked into ${file}`);
+  }
   assert(!text.includes('sourceMappingURL='), `Source map exposed by ${file}`);
 }
 const html = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');

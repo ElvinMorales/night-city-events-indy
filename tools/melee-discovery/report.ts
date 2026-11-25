@@ -1,10 +1,10 @@
 import { compareCatalog, fixtureSchema, readSource } from './discovery';
-import catalog from '../../src/data/events.json';
+import productionCatalog from '../../src/data/events.json';
 import { readLiveSources } from './live';
 import organizations from '../../docs/sources/melee-organizations.json';
 import registry from '../../docs/sources/melee-locations.json';
 
-export async function buildReport(format: string, fixtureData: unknown, enabled: boolean) {
+export async function buildReport(format: string, fixtureData: unknown, enabled: boolean, catalog = productionCatalog) {
   const live = format === '--live' || format === '--pilot';
   const fixture = live ? null : fixtureSchema.parse(fixtureData);
   const liveReport = live ? await readLiveSources(organizations, enabled, format === '--pilot') : null;

@@ -7,8 +7,8 @@ const fixtures = JSON.parse(readFileSync(new URL('../src/data/samples.json', imp
 }[];
 const normalize = (value: string) => value.trim().toLowerCase();
 
-export function validateProductionCatalog(input: unknown) {
-  const result = loadCatalog(input);
+export function validateProductionCatalog(input: unknown, now = new Date()) {
+  const result = loadCatalog(input, { now });
   // Check every revision, including records deduplicate() would hide.
   if (!result.errors.length && Array.isArray(input)) {
     for (const event of input) {

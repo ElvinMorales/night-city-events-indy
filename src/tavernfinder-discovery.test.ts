@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import production from './data/events.json';
+import catalogFixture from './test-fixtures/discovery-catalog.json';
 import registry from '../docs/sources/melee-locations.json';
 import { loadCatalog } from './catalog';
 import { gameId, maxPages, normalizeObservation, readTavernFinder, requestPage } from '../tools/tavernfinder-discovery/source';
@@ -79,7 +79,7 @@ describe('TavernFinder public discovery', () => {
 });
 
 describe('TavernFinder moderator review', () => {
-  const { events } = loadCatalog(production, { now: clock() });
+  const { events } = loadCatalog(catalogFixture, { now: clock() });
 
   it('preserves catalog IDs, flags the Mage’s pair and Muncie discrepancy, and isolates new venues', async () => {
     const snapshot = JSON.stringify(events);
@@ -103,7 +103,7 @@ describe('TavernFinder moderator review', () => {
     expect(report.duplicateCandidates).toEqual([{ reason: 'shared-venue-and-start', sourceIds: [id(1), id(2)] }]);
     expect(report.metrics).toMatchObject({
       inCoverage: 4, outsideRadius: 1, outOfWindow: 2, activeRegistryVenues: 13,
-      activeVenuesRepresented: 2, knownUpcoming: 30, matchedUpcoming: 1, newDatedLeads: 1, missingOrganizerEvidence: 4,
+      activeVenuesRepresented: 2, knownUpcoming: 3, matchedUpcoming: 1, newDatedLeads: 1, missingOrganizerEvidence: 4,
     });
     expect(JSON.stringify(events)).toBe(snapshot);
     expect(markdown(report)).toContain('organizer evidence missing');
@@ -114,7 +114,7 @@ describe('TavernFinder moderator review', () => {
   it('does not create a cancellation when a catalog event is missing', async () => {
     const report = review(await read([]), events, registry.locations);
     expect(report.findings).toEqual([]);
-    expect(report.metrics).toMatchObject({ knownUpcoming: 30, matchedUpcoming: 0 });
+    expect(report.metrics).toMatchObject({ knownUpcoming: 3, matchedUpcoming: 0 });
   });
 
   it('flags competing canonical records without arbitrarily choosing one', async () => {

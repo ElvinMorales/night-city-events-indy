@@ -7,7 +7,7 @@ export const eventSchema = z.object({
  venue:z.string().min(1), address:z.string().min(5), lat:z.number().min(-90).max(90), lng:z.number().min(-180).max(180),
  start:z.string().datetime({offset:true}), end:z.string().datetime({offset:true}).optional(), timezone:z.literal(TZ), format:z.string().min(1),
  fee:z.string().optional(), registrationUrl:publicUrl, sourceUrl:publicUrl, lastVerified:z.string().datetime({offset:true}).nullable(),
- status:z.enum(['confirmed','unverified','cancelled']), sample:z.boolean(), description:z.string(), updatedAt:z.string().datetime({offset:true})
+ verificationMethod:z.literal('moderator-organizer-check').optional(), status:z.enum(['confirmed','unverified','cancelled']), sample:z.boolean(), description:z.string(), updatedAt:z.string().datetime({offset:true})
 }).refine(e=>e.end===undefined||Date.parse(e.end)>Date.parse(e.start),{message:'End must be after start',path:['end']}).refine(e=>!e.sample||e.status!=='confirmed',{message:'Fictional samples cannot be confirmed',path:['status']}).refine(e=>e.status!=='confirmed'||e.lastVerified!==null,{message:'Confirmed events require an organizer verification timestamp',path:['lastVerified']});
 export type Event = z.infer<typeof eventSchema>;
 export const dayKey=(date:string|Date)=>new Intl.DateTimeFormat('en-CA',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(date));
