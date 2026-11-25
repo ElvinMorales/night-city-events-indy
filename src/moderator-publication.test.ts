@@ -115,8 +115,9 @@ async function harness(reviewEnabled = true) {
   let validation: Run | undefined;
   let deployed: Run | undefined;
   const release = vi.fn(async () => { commit = sha; deployed = successfulRun; });
+  const stage = vi.fn(async () => ({ sha, branch: 'indy-catalog/isolated' }));
   const publication: Publication = {
-    main: async () => commit, catalog: async () => [], stage: async () => ({ sha, branch: 'indy-catalog/isolated' }),
+    main: async () => commit, catalog: async () => [], stage,
     validation: async () => validation, release, deployment: async () => deployed, retryDeployment: async () => {},
   };
   const store = new Moderation(state.dir, publication, clock);
@@ -152,7 +153,8 @@ async function harness(reviewEnabled = true) {
   const review = { ...details, key: candidateKey(finding), snapshot: store.snapshotKey(store.snapshot().report!),
     decision: 'approved', verified: 'yes', identity: 'yes' };
   const publish = (action: string) => post('/publication', { action, proposal: store.read().release?.id ?? '' });
-  return { ...state, store, get, html, post, review, publish, release,
+  return { ...state, store, get, html, post, review, publish, release, stage,
+    status: (custom = headers) => request('GET', '/publication-status', custom),
     validate: (result: Run | undefined) => { validation = result; }, advance: () => { commit = other; } };
 }
 
@@ -164,6 +166,8 @@ describe('private dashboard', () => {
     expect(page.headers.get('content-security-policy')).toContain("form-action 'self'");
     expect(page.headers.get('cache-control')).toBe('private, no-store');
     expect((await h.get({ 'tailscale-user-login': 'unknown' })).status).toBe(403);
+    expect((await h.status({ 'tailscale-user-login': 'unknown' })).status).toBe(403);
+    expect((await h.status()).headers.get('cache-control')).toBe('private, no-store');
     for (const options of [{ login: 'unknown' }, { token: 'bad' }, { site: 'cross-site' }, { origin: 'https://other.invalid' }]) {
       expect((await h.post('/review', h.review, options)).status).toBe(403);
       expect((await h.post('/publication', { action: 'prepare' }, options)).status).toBe(403);
@@ -206,6 +210,50 @@ describe('private dashboard', () => {
     expect((await h.publish('authorize')).status).toBe(409);
     expect((await h.publish('archive')).status).toBe(303);
     expect(readFileSync(join(h.dir, 'moderation', 'decisions.json'), 'utf8')).toContain('"outcome": "deployed"');
+  });
+
+  it('prefills known venues, records unknowns, and immediately validates the submitted batch', async () => {
+    const h = await harness();
+    const known = { ...finding, registryKey: 'good-games-indianapolis' };
+    h.refresh(base, [known]);
+    const input = {
+      key: candidateKey(known), snapshot: h.store.snapshotKey(h.store.snapshot().report!),
+      confirmation: 'dated-organizer-evidence', decision: 'approved',
+    };
+    expect(await h.html()).toContain('111 S Meridian St, Indianapolis, IN 46225');
+    expect(await h.html()).toContain('Open venue calendar');
+    expect((await h.post('/review', input)).status).toBe(409);
+    expect((await h.post('/review', { ...input, sourceUrl: 'https://tavernfinder.com/events/1' })).status).toBe(409);
+    expect((await h.post('/review', { ...input, sourceUrl: details.sourceUrl, start: '2027-07-10T17:00' })).status).toBe(303);
+    const approved = h.store.read().decisions[input.key].approval!;
+    expect(approved.verifiedAt).toBe(at);
+    expect(approved.details).toMatchObject({ venue: 'Good Games Indianapolis', lat: 39.7651812,
+      lng: -86.1575896, start: '2027-07-10T17:00:00-04:00' });
+    expect(approved.details).not.toHaveProperty('registrationUrl');
+    expect(approved.details).not.toHaveProperty('format');
+    expect((await h.publish('submit')).status).toBe(303);
+    expect(h.stage).toHaveBeenCalledTimes(1);
+    expect(h.release).not.toHaveBeenCalled();
+    expect(await (await h.status()).text()).toContain('data-poll');
+    h.validate(successfulRun);
+    expect(await (await h.status()).text()).toContain('Authorize publication of this revision');
+    expect((await h.publish('authorize')).status).toBe(303);
+    expect(h.release).toHaveBeenCalledTimes(1);
+  });
+
+  it('uses occurrence evidence from an exact catalog match and preserves its canonical ID', async () => {
+    const h = await harness();
+    const record = generateCatalog(base, [], [approval], clock()).changes[0].after;
+    const exact: Finding = { ...finding, kind: 'existing-match', canonicalId: record.id,
+      related: [{ id: record.id, start: record.start, status: record.status, catalogRecord: record }] };
+    h.refresh(base, [exact]);
+    expect(await h.html()).toContain('Open dated organizer evidence');
+    const response = await h.post('/review', { confirmation: 'dated-organizer-evidence', decision: 'approved',
+      key: candidateKey(exact), snapshot: h.store.snapshotKey(h.store.snapshot().report!) });
+    expect(response.status).toBe(303);
+    expect(h.store.read().decisions[candidateKey(exact)].approval?.details).toMatchObject({
+      ...details, start: exact.observation.start, targetId: record.id,
+    });
   });
 
   it('refuses a validated proposal after concurrent catalog advancement', async () => {

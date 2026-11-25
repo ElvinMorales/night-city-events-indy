@@ -33,15 +33,20 @@ const rowSchema = z.object({
   startTime: z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d)?$/),
 });
 
+export function indianapolisWallTime(value: string) {
+  const wall = value.replace(/(T\d\d:\d\d)$/, '$1:00');
+  // Accept only a unique round trip. Fall-back times need an explicit choice of offset.
+  const candidates = ['-04:00', '-05:00'].map(offset => wall + offset)
+    .filter(candidate => indianapolisStart(candidate) === candidate);
+  return candidates.length === 1 ? candidates[0] : null;
+}
+
 export function normalizeObservation(input: unknown, observedAt: string) {
   const parsed = rowSchema.safeParse(input);
   if (!parsed.success) return null;
   const row = parsed.data;
-  const wall = row.date + 'T' + (row.startTime.length === 5 ? row.startTime + ':00' : row.startTime);
-  // The Indianapolis coverage area uses Eastern time. Accept only a unique round trip.
-  const starts = ['-04:00', '-05:00'].map(offset => wall + offset)
-    .filter(candidate => indianapolisStart(candidate) === candidate);
-  if (starts.length !== 1) return null;
+  const start = indianapolisWallTime(row.date + 'T' + row.startTime);
+  if (!start) return null;
   return {
     source: 'tavernfinder' as const,
     sourceId: row.id,
@@ -53,7 +58,7 @@ export function normalizeObservation(input: unknown, observedAt: string) {
     gameId: row.gameBggId,
     title: row.title,
     date: row.date,
-    start: starts[0],
+    start,
     timezone: TZ,
     observedAt,
     evidence: 'organizer-evidence-missing' as const,

@@ -6,6 +6,8 @@ type Venue = {
   name: string;
   city: string;
   activeDiscovery: boolean;
+  address?: string;
+  organizerUrl?: string;
   lat: number;
   lng: number;
 };
@@ -71,7 +73,7 @@ export function review(
     }
     if (point) inCoverage++;
     if (venue && point) represented.add(venue.key);
-    const base = { observation, registryKey: venue?.key ?? null, withinRadius: point ? true : null };
+    const base = { observation, registryKey: venue?.key ?? null, venue: venue ? { name: venue.name, address: venue.address, lat: venue.lat, lng: venue.lng, organizerUrl: venue.organizerUrl } : undefined, withinRadius: point ? true : null };
     const atVenue = venue
       ? comparable.filter(event => venueKey(event.venue) === venueKey(venue.name)) : [];
     const observedStart = Date.parse(observation.start);
@@ -79,7 +81,7 @@ export function review(
     const sameTitle = atVenue.filter(event => nameKey(event.name) === nameKey(observation.title));
     const exact = exactSlot.filter(event => sameTitle.includes(event));
     const nearby = sameTitle.filter(event => Math.abs(Date.parse(event.start) - observedStart) <= 1.5 * dayMs);
-    const related = (events: Event[]) => events.map(event => ({ id: event.id, start: event.start, status: event.status }));
+    const related = (events: Event[]) => events.map(event => ({ id: event.id, start: event.start, status: event.status, catalogRecord: event }));
 
     if (exact.length === 1) {
       findings.push({ ...base, kind: 'existing-match' as const, canonicalId: exact[0].id, related: related(exactSlot) });

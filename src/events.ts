@@ -3,10 +3,10 @@ export const TZ = 'America/Indiana/Indianapolis';
 export const types = ['Tournament','Casual play','Learn to play','Community meetup'] as const;
 const publicUrl = z.string().url().refine(value=>/^https?:\/\//i.test(value),'Use a public HTTP(S) URL');
 export const eventSchema = z.object({
- id:z.string().regex(/^[a-zA-Z0-9_-]+$/, 'Use letters, digits, underscores or hyphens'), name:z.string().min(3), type:z.enum(types),
+ id:z.string().regex(/^[a-zA-Z0-9_-]+$/, 'Use letters, digits, underscores or hyphens'), name:z.string().min(3), type:z.enum(types).optional(),
  venue:z.string().min(1), address:z.string().min(5), lat:z.number().min(-90).max(90), lng:z.number().min(-180).max(180),
- start:z.string().datetime({offset:true}), end:z.string().datetime({offset:true}).optional(), timezone:z.literal(TZ), format:z.string().min(1),
- fee:z.string().optional(), registrationUrl:publicUrl, sourceUrl:publicUrl, lastVerified:z.string().datetime({offset:true}).nullable(),
+ start:z.string().datetime({offset:true}), end:z.string().datetime({offset:true}).optional(), timezone:z.literal(TZ), format:z.string().min(1).optional(),
+ fee:z.string().optional(), registrationUrl:publicUrl.optional(), sourceUrl:publicUrl, lastVerified:z.string().datetime({offset:true}).nullable(),
  verificationMethod:z.literal('moderator-organizer-check').optional(), status:z.enum(['confirmed','unverified','cancelled']), sample:z.boolean(), description:z.string(), updatedAt:z.string().datetime({offset:true})
 }).refine(e=>e.end===undefined||Date.parse(e.end)>Date.parse(e.start),{message:'End must be after start',path:['end']}).refine(e=>!e.sample||e.status!=='confirmed',{message:'Fictional samples cannot be confirmed',path:['status']}).refine(e=>e.status!=='confirmed'||e.lastVerified!==null,{message:'Confirmed events require an organizer verification timestamp',path:['lastVerified']});
 export type Event = z.infer<typeof eventSchema>;
