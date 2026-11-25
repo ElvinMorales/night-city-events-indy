@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
-import catalog from './data/events.json';
+import catalog from './test-fixtures/discovery-catalog.json';
 import { buildReport } from '../tools/melee-discovery/report';
 import fixture from '../tools/melee-discovery/refresh.fixture.json';
 import {
@@ -106,7 +106,7 @@ describe('Melee organizer-list discovery', () => {
 
   it('generates the checked-in reports and preserves the production catalog bytes', async () => {
     const before = readFileSync('src/data/events.json');
-    const report = await buildReport('--json', fixture, false);
+    const report = await buildReport('--json', fixture, false, catalog);
     expect(report.json).toBe(readFileSync('docs/review/melee-discovery/example.json', 'utf8'));
     expect(report.markdown).toBe(readFileSync('docs/review/melee-discovery/example.md', 'utf8'));
     expect(readFileSync('src/data/events.json').equals(before)).toBe(true);

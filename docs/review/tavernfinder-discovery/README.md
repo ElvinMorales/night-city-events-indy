@@ -45,3 +45,7 @@ After approval and once the workflow is on the default branch:
 To stop scheduled retrieval, set `TAVERNFINDER_SCHEDULE_ENABLED=false`. To also block manual retrieval, set the global switch `DISCOVERY_RETRIEVAL_ENABLED=false` or the TavernFinder switch `TAVERNFINDER_RETRIEVAL_ENABLED=false`. Cancel a run already in progress in Actions. The local CLI uses its own environment, so unset the same switches on the moderator machine to stop local retrieval. The catalog and site need no rollback. Disabling the workflow entirely is also available in Actions.
 
 The [terms of service](https://tavernfinder.com/en/terms) acknowledge third-party ownership. The reviewed materials provide no explicit license to redistribute listing content. Keep selected records private while reuse rights remain unresolved.
+
+## Organizer review and publication
+
+The [moderator publication guide](PUBLICATION.md) covers the actionable dashboard, the approved catalog release flow and rollback. The [readiness report](READINESS.md) describes the isolated demonstration and activation gates.

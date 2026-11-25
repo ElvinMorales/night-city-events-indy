@@ -1,0 +1,36 @@
+name: Validate Indy catalog proposal
+on:
+  workflow_dispatch:
+    inputs:
+      proposal_sha:
+        description: Full SHA of the proposed catalog commit
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  validate:
+    if: startsWith(github.ref, 'refs/heads/indy-catalog/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Verify the proposed revision only changes the catalog
+        env:
+          PROPOSAL_SHA: ${{ inputs.proposal_sha }}
+        run: |
+          test "$GITHUB_SHA" = "$PROPOSAL_SHA"
+          test "$GITHUB_SHA" = "$(git rev-parse HEAD)"
+          test "$(git rev-list --parents -n 1 HEAD | wc -w)" -eq 2
+          test "$(git diff-tree --no-commit-id --name-only -r HEAD)" = src/data/events.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node --import tsx tools/tavernfinder-discovery/check-transition.ts
+      - run: npm test
+      - run: npm run typecheck
+      - run: npm run build

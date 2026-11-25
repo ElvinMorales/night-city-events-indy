@@ -2,7 +2,7 @@ import { mkdtempSync, readFileSync, rmSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import production from './data/events.json';
+import catalogFixture from './test-fixtures/discovery-catalog.json';
 import registry from '../docs/sources/melee-locations.json';
 import { loadCatalog } from './catalog';
 import { review } from '../tools/tavernfinder-discovery/review';
@@ -28,7 +28,7 @@ function directory() {
 afterEach(() => {
   for (const path of directories.splice(0)) rmSync(path, { recursive: true, force: true });
 });
-const events = loadCatalog(production, { now: new Date(first) }).events;
+const events = loadCatalog(catalogFixture, { now: new Date(first) }).events;
 async function result(at: string, request: RequestPage, enabled = controls) {
   return review(await readTavernFinder(enabled, request, () => new Date(at)), events, registry.locations);
 }

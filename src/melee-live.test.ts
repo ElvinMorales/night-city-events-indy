@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import catalog from './data/events.json';
+import catalog from './test-fixtures/discovery-catalog.json';
 import { compareCatalog } from '../tools/melee-discovery/discovery';
 import { readLiveSources, requestLivePage } from '../tools/melee-discovery/live';
 
