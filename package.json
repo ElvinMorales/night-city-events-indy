@@ -10,7 +10,7 @@
     "test": "vitest run",
     "preview": "vite preview --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
-    "check:catalog": "tsx scripts/check-catalog.ts",
+    "check:catalog": "node --import tsx scripts/check-catalog.ts",
     "check:pages": "node scripts/check-pages-artifact.mjs"
   },
   "dependencies": {

@@ -1,0 +1,45 @@
+{
+  "source": "tavernfinder",
+  "outcome": "success",
+  "checkedAt": "2026-11-24T20:57:42.635Z",
+  "checks": [
+    {
+      "offset": 0,
+      "httpStatus": 200,
+      "observedAt": "2026-11-24T20:57:43.231Z",
+      "validPage": true
+    }
+  ],
+  "reported": {
+    "total": 45,
+    "nearbyCount": 44,
+    "bounded": true,
+    "radiusKm": 150
+  },
+  "invalidRows": 0,
+  "repeatedIds": 0,
+  "returnedRows": 45,
+  "window": {
+    "from": "2026-11-24",
+    "through": "2027-01-23",
+    "radiusMiles": 100
+  },
+  "metrics": {
+    "returnedRows": 45,
+    "inCoverage": 45,
+    "outOfWindow": 0,
+    "outsideRadius": 0,
+    "activeVenuesRepresented": 12,
+    "activeRegistryVenues": 13,
+    "knownUpcoming": 30,
+    "matchedUpcoming": 29,
+    "rediscoveryPercent": 96.66666666666667,
+    "newDatedLeads": 14,
+    "potentialScheduleChanges": 1,
+    "ambiguousMatches": 0,
+    "crossSourceDuplicates": 1,
+    "duplicateGroups": 1,
+    "unresolvedVenueRows": 2,
+    "missingOrganizerEvidence": 45
+  }
+}

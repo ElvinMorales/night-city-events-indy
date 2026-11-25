@@ -1,0 +1,161 @@
+{
+  "mode": "offline-fixture",
+  "fixture": "Synthetic organizer-list payloads with catalog-linked control rows",
+  "sources": [
+    {
+      "label": "Books & Brews organizer (fixture)",
+      "hub": {
+        "kind": "organization",
+        "organizationId": "19843"
+      },
+      "outcome": "complete",
+      "requests": 2,
+      "excluded": 1,
+      "issues": [],
+      "candidateRows": 5
+    },
+    {
+      "label": "Good Games Indianapolis venue (unresolved organizer)",
+      "hub": {
+        "kind": "location",
+        "locationId": "690"
+      },
+      "outcome": "inaccessible",
+      "classification": "inaccessible-source",
+      "requests": 0,
+      "excluded": 0,
+      "issues": [],
+      "detail": "No verified organization list for location source",
+      "candidateRows": 0
+    },
+    {
+      "label": "Next Level Games Carmel venue (unresolved organizer)",
+      "hub": {
+        "kind": "location",
+        "locationId": "16968"
+      },
+      "outcome": "inaccessible",
+      "classification": "inaccessible-source",
+      "requests": 0,
+      "excluded": 0,
+      "issues": [],
+      "detail": "No verified organization list for location source",
+      "candidateRows": 0
+    }
+  ],
+  "candidates": [
+    {
+      "tournamentId": "480151",
+      "canonicalEventId": "cyberpunk-night-city-showdown-indianapolis-2026-11-21",
+      "observations": [
+        {
+          "tournamentId": "480151",
+          "name": "The First Night City Showdown at Books & Brews",
+          "start": "2026-11-21T17:00:00-05:00",
+          "timezone": "America/Indiana/Indianapolis",
+          "locationId": "18573",
+          "fee": "$10",
+          "entryType": null,
+          "status": "Open Registration",
+          "tournamentUrl": "https://melee.gg/Tournament/View/480151",
+          "registrationUrl": "https://melee.gg/Tournament/View/480151",
+          "sources": [
+            "Books & Brews organizer (fixture)"
+          ]
+        }
+      ],
+      "diff": {},
+      "classification": "unchanged"
+    },
+    {
+      "tournamentId": "506950",
+      "canonicalEventId": "cyberpunk-night-city-brawl-books-and-brews-2026-12-05",
+      "observations": [
+        {
+          "tournamentId": "506950",
+          "name": "Night City Brawl at Books & Brews",
+          "start": "2026-12-07T18:00:00-05:00",
+          "timezone": "America/Indiana/Indianapolis",
+          "locationId": "18573",
+          "fee": null,
+          "entryType": null,
+          "status": null,
+          "tournamentUrl": "https://melee.gg/Tournament/View/506950",
+          "registrationUrl": null,
+          "sources": [
+            "Books & Brews organizer (fixture)"
+          ]
+        }
+      ],
+      "diff": {
+        "start": {
+          "catalog": "2026-12-05T18:00:00-05:00",
+          "observed": "2026-12-07T18:00:00-05:00"
+        }
+      },
+      "classification": "changed"
+    },
+    {
+      "tournamentId": "990000002",
+      "canonicalEventId": null,
+      "observations": [
+        {
+          "tournamentId": "990000002",
+          "name": "Fictional December tournament",
+          "start": "2026-12-20T14:00:00-05:00",
+          "timezone": "America/Indiana/Indianapolis",
+          "locationId": "18573",
+          "fee": null,
+          "entryType": null,
+          "status": null,
+          "tournamentUrl": "https://melee.gg/Tournament/View/990000002",
+          "registrationUrl": null,
+          "sources": [
+            "Books & Brews organizer (fixture)"
+          ]
+        }
+      ],
+      "diff": {},
+      "classification": "new"
+    },
+    {
+      "tournamentId": "990000003",
+      "canonicalEventId": null,
+      "observations": [
+        {
+          "tournamentId": "990000003",
+          "name": "Fictional tournament with conflicting dates",
+          "start": "2026-12-23T14:00:00-05:00",
+          "timezone": "America/Indiana/Indianapolis",
+          "locationId": "18573",
+          "fee": null,
+          "entryType": null,
+          "status": null,
+          "tournamentUrl": "https://melee.gg/Tournament/View/990000003",
+          "registrationUrl": null,
+          "sources": [
+            "Books & Brews organizer (fixture)"
+          ]
+        },
+        {
+          "tournamentId": "990000003",
+          "name": "Fictional tournament with conflicting dates",
+          "start": "2026-12-24T14:00:00-05:00",
+          "timezone": "America/Indiana/Indianapolis",
+          "locationId": "18573",
+          "fee": null,
+          "entryType": null,
+          "status": null,
+          "tournamentUrl": "https://melee.gg/Tournament/View/990000003",
+          "registrationUrl": null,
+          "sources": [
+            "Books & Brews organizer (fixture)"
+          ]
+        }
+      ],
+      "diff": {},
+      "classification": "conflicting",
+      "relatedCatalogIds": []
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+name: TavernFinder discovery
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: tavernfinder-discovery
+  cancel-in-progress: false
+jobs:
+  discovery:
+    if: >-
+      vars.DISCOVERY_RETRIEVAL_ENABLED == 'true' &&
+      vars.TAVERNFINDER_RETRIEVAL_ENABLED == 'true' &&
+      (github.event_name == 'workflow_dispatch' || vars.TAVERNFINDER_SCHEDULE_ENABLED == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - name: Restore last successful refresh timestamp
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          HEALTH_DIR: ${{ runner.temp }}/tavernfinder-health
+        run: |
+          mkdir -m 700 "$HEALTH_DIR"
+          echo "HEALTH_DIR=$HEALTH_DIR" >> "$GITHUB_ENV"
+          run_id=$(gh api --method GET "repos/$GITHUB_REPOSITORY/actions/workflows/tavernfinder-discovery.yml/runs" \
+            -f branch="$DEFAULT_BRANCH" -f status=success -F per_page=100 \
+            --jq ".workflow_runs[] | select(.id != $GITHUB_RUN_ID) | .id")
+          artifact_run=$(gh api --method GET "repos/$GITHUB_REPOSITORY/actions/artifacts" \
+            -f name=tavernfinder-last-success -F per_page=100 \
+            --jq '.artifacts[] | select(.expired == false) | .workflow_run.id' |
+            jq -Rs --arg runs "$run_id" '($runs | split("\n")) as $allowed |
+              [split("\n")[] | select(length > 0) | . as $id | select($allowed | index($id))][0] // empty')
+          if [ -n "$artifact_run" ]; then
+            gh run download "$artifact_run" --repo "$GITHUB_REPOSITORY" \
+              --name tavernfinder-last-success --dir "$HEALTH_DIR"
+          fi
+      - name: Refresh and summarize source health
+        env:
+          DISCOVERY_RETRIEVAL_ENABLED: ${{ vars.DISCOVERY_RETRIEVAL_ENABLED }}
+          TAVERNFINDER_RETRIEVAL_ENABLED: ${{ vars.TAVERNFINDER_RETRIEVAL_ENABLED }}
+        run: |
+          result=0
+          node --import tsx tools/tavernfinder-discovery/refresh.ts --hosted "$HEALTH_DIR" > "$RUNNER_TEMP/tavernfinder-summary.json" || result=$?
+          {
+            echo '## TavernFinder source health'
+            echo
+            echo '```json'
+            cat "$RUNNER_TEMP/tavernfinder-summary.json"
+            echo '```'
+            if [ "$result" -ne 0 ]; then
+              echo 'Refresh failed. Previous successful state remains available if retained.'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$result"
+      - name: Save successful timestamp only
+        uses: actions/upload-artifact@v4
+        with:
+          name: tavernfinder-last-success
+          path: ${{ runner.temp }}/tavernfinder-health/last-success.json
+          if-no-files-found: error
+          retention-days: 30

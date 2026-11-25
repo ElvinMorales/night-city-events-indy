@@ -1,0 +1,27 @@
+[
+  {
+    "label": "Books & Brews",
+    "organizationId": "19843",
+    "locationIds": ["18573"],
+    "enabled": false,
+    "provenance": [
+      "https://melee.gg/Tournament/View/480151",
+      "https://melee.gg/Hub/Organization/19843",
+      "Archived public listing links the organizer hub and separately identifies venue 18573."
+    ]
+  },
+  {
+    "label": "Good Games Indianapolis",
+    "organizationId": null,
+    "locationIds": ["690"],
+    "enabled": false,
+    "provenance": ["https://melee.gg/Tournament/View/460452", "Catalog and archived game locator identify the venue only."]
+  },
+  {
+    "label": "Next Level Games Carmel",
+    "organizationId": null,
+    "locationIds": ["16968"],
+    "enabled": false,
+    "provenance": ["https://melee.gg/Tournament/View/483326", "Catalog and public organizer calendar corroborate the venue only."]
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "label": "Synthetic organizer-list payloads with catalog-linked control rows",
+  "sources": [
+    {
+      "label": "Books & Brews organizer (fixture)",
+      "hub": { "kind": "organization", "organizationId": "19843" },
+      "responses": {
+        "0": {
+          "status": 200,
+          "body": {
+            "recordsFiltered": 6,
+            "data": [
+              {
+                "Game": "CyberpunkTCG", "ID": 480151, "LocationId": 18573,
+                "Name": "The First Night City Showdown at Books & Brews",
+                "StartDate": "2026-11-21T22:00:00.0000000Z", "EntryFeeString": "$10",
+                "StatusDescription": "Open Registration",
+                "RegistrationUrl": "/Tournament/View/480151"
+              },
+              { "Game": "MagicTheGathering", "ID": 990000001, "Name": "Other game" }
+            ]
+          }
+        },
+        "2": {
+          "status": 200,
+          "body": {
+            "recordsFiltered": 6,
+            "data": [
+              {
+                "Game": "CyberpunkTCG", "ID": "506950", "LocationId": 18573,
+                "Name": "Night City Brawl at Books & Brews", "StartDate": "2026-12-07T23:00:00Z"
+              },
+              {
+                "Game": "CyberpunkTCG", "ID": 990000002, "LocationId": 18573,
+                "Name": "Fictional December tournament", "StartDate": "2026-12-20T19:00:00Z"
+              },
+              {
+                "Game": "CyberpunkTCG", "ID": 990000003, "LocationId": 18573,
+                "Name": "Fictional tournament with conflicting dates", "StartDate": "2026-12-23T19:00:00Z"
+              },
+              {
+                "Game": "CyberpunkTCG", "ID": 990000003, "LocationId": 18573,
+                "Name": "Fictional tournament with conflicting dates", "StartDate": "2026-12-24T19:00:00Z"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "label": "Good Games Indianapolis venue (unresolved organizer)",
+      "hub": { "kind": "location", "locationId": "690" },
+      "responses": {}
+    },
+    {
+      "label": "Next Level Games Carmel venue (unresolved organizer)",
+      "hub": { "kind": "location", "locationId": "16968" },
+      "responses": {}
+    }
+  ]
+}
