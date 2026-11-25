@@ -18,6 +18,7 @@ export function validateProductionCatalog(input: unknown, now = new Date()) {
         result.errors.push(`${event.id}: development fixture identity is forbidden in production, even with sample: false`);
       }
       for (const key of ['sourceUrl', 'registrationUrl']) {
+        if (key === 'registrationUrl' && event[key] === undefined) continue;
         const host = new URL(event[key]).hostname;
         if (/(^|\.)(example\.(com|net|org)|test|invalid|localhost)$/.test(host)) {
           result.errors.push(`${event.id}: ${key} uses a placeholder hostname`);

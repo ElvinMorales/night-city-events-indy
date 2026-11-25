@@ -1,14 +1,23 @@
 import { lstatSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { digest, generateCatalog, requireReview, revision, ReviewError, verifiedDetails, type Approval, type CatalogChange } from './catalog-update';
+import { digest, generateCatalog, requireReview, revision, ReviewError, organizerUrl, verifiedDetails, type Approval, type CatalogChange } from './catalog-update';
 import type { Publication, Proposal, StagedCommit } from './publication';
-import { eventSchema, TZ } from '../../src/events';
+import { eventSchema, TZ, type Event } from '../../src/events';
 import type { Review } from './review';
+import registry from '../../docs/sources/melee-locations.json';
+import { indianapolisStart } from '../melee-discovery/discovery';
+import { indianapolisWallTime } from './source';
 
-export type Finding = Review['findings'][number] & {
+type ReviewFinding = Review['findings'][number];
+export type Finding = Omit<ReviewFinding, 'venue' | 'related'> & {
+  venue?: ReviewFinding['venue'];
   discoveryUrl?: string;
   organizerUrl?: string;
-  related: (Review['findings'][number]['related'][number] & { catalogSourceUrl?: string })[];
+  occurrenceEvidenceUrl?: string;
+  related: (Omit<ReviewFinding['related'][number], 'catalogRecord'> & {
+    catalogRecord?: Event;
+    catalogSourceUrl?: string;
+  })[];
 };
 type Snapshot = Omit<Review, 'findings'> & {
   findings: Finding[];
@@ -37,7 +46,48 @@ type Release = Proposal & {
 type State = { version: number; decisions: Record<string, Decision>; release?: Release;
   history?: { sha: string; authorizedAt: string; authorizedBy: string; outcome: 'deployed' | 'superseded' }[] };
 const fields = ['targetId', 'name', 'type', 'venue', 'address', 'lat', 'lng', 'start', 'end', 'format',
-  'fee', 'description', 'sourceUrl', 'registrationUrl'];
+  'fee', 'description', 'sourceUrl', 'registrationUrl'] as const;
+
+const independentUrl = (url?: string) => organizerUrl.safeParse(url).data ?? '';
+
+export function reviewDefaults(finding: Finding, targetId = finding.canonicalId ?? '') {
+  const { observation } = finding;
+  const venue = finding.venue ?? registry.locations.find(location => location.key === finding.registryKey);
+  const match = finding.related.find(item => item.id === targetId);
+  const record = match?.catalogRecord;
+  const sameTime = !!match && Date.parse(match.start) === Date.parse(observation.start);
+  const catalogEvidence = sameTime ? independentUrl(record?.sourceUrl ?? match?.catalogSourceUrl) : '';
+  const venueUrl = venueEvidence(finding);
+  return {
+    targetId, name: record?.name ?? observation.title,
+    venue: venue?.name ?? record?.venue ?? observation.venueName,
+    address: venue?.address ?? record?.address ?? '',
+    lat: String(venue?.lat ?? record?.lat ?? observation.lat ?? ''),
+    lng: String(venue?.lng ?? record?.lng ?? observation.lng ?? ''),
+    start: indianapolisStart(observation.start) ?? observation.start,
+    end: sameTime ? indianapolisStart(record?.end) ?? '' : '',
+    type: record?.type ?? '', format: record?.format ?? '', fee: record?.fee ?? '',
+    description: record?.description ?? '',
+    sourceUrl: independentUrl(finding.occurrenceEvidenceUrl)
+      || (catalogEvidence === venueUrl ? '' : catalogEvidence),
+    registrationUrl: sameTime ? independentUrl(record?.registrationUrl) : '',
+  };
+}
+
+export function reviewValues(finding: Finding, saved?: Record<string, string>, selected?: string) {
+  const initial = saved?.targetId || finding.canonicalId || '';
+  const target = selected === 'distinct' ? '' : selected ?? initial;
+  return target === initial ? { ...reviewDefaults(finding, target), ...saved } : reviewDefaults(finding, target);
+}
+
+export function venueEvidence(finding: Finding) {
+  return independentUrl(finding.organizerUrl ?? finding.venue?.organizerUrl
+    ?? registry.locations.find(location => location.key === finding.registryKey)?.organizerUrl);
+}
+
+export function needsIdentityChoice(finding: Finding) {
+  return !finding.canonicalId && finding.related.length > 0;
+}
 
 export function candidateKey({ observation }: Finding) {
   return digest(JSON.stringify([observation.source, observation.sourceId, observation.sourceVenueId,
@@ -106,21 +156,42 @@ export class Moderation {
       requireReview(status === 'approved' || status === 'dismissed' || status === 'deferred', 'Choose a review decision.');
       requireReview(!state.release?.keys.includes(key), 'Clear the current proposal before changing a decision included in it.');
       requireReview(state.decisions[key]?.status !== 'released', 'This candidate has already been released.');
-      const input = Object.fromEntries(fields.map(field => [field, (form.get(field) ?? '').trim()]));
+      const compact = form.get('confirmation') === 'dated-organizer-evidence';
+      const selected = form.get('targetId');
+      const saved = state.decisions[key]?.fields;
+      const initial = reviewValues(finding, saved);
+      const defaults = reviewValues(finding, saved, selected ?? undefined);
+      const input = Object.fromEntries(fields.map(field => {
+        const submitted = form.get(field)?.trim();
+        const unchanged = defaults.targetId !== initial.targetId && submitted === initial[field];
+        return [field, compact && (submitted === undefined || unchanged) ? defaults[field] : submitted ?? ''];
+      }));
+      if (compact) {
+        input.targetId = defaults.targetId;
+        for (const key of ['start', 'end']) {
+          if (input[key]) input[key] = indianapolisStart(input[key]) ?? indianapolisWallTime(input[key]) ?? input[key];
+        }
+      }
       const now = this.clock();
       const decision: Decision = {
         status, at: now.toISOString(), by: moderator, title: finding.observation.title, fields: input,
       };
       if (status === 'approved') {
-        requireReview(form.get('verified') === 'yes' && form.get('identity') === 'yes',
+        requireReview(compact || form.get('verified') === 'yes' && form.get('identity') === 'yes',
           'Confirm the organizer evidence and the occurrence identity.');
         requireReview(typeof report.catalogRevision === 'string' && revision.safeParse(report.catalogRevision).success,
           'Wait for a discovery snapshot with a catalog revision.');
+        if (compact && needsIdentityChoice(finding)) {
+          requireReview(selected === 'distinct' || finding.related.some(match => match.id === selected),
+            'Choose a catalog occurrence to update or confirm that this is a distinct event.');
+        }
         requireReview(input.lat && input.lng, 'Enter verified public venue coordinates.');
         requireReview(!finding.canonicalId || input.targetId === finding.canonicalId,
           'Use the existing canonical ID for this matched occurrence.');
         const details = verifiedDetails.parse({
           ...input, lat: Number(input.lat), lng: Number(input.lng), end: input.end || undefined, fee: input.fee || undefined,
+          type: input.type || undefined, format: input.format || undefined,
+          registrationUrl: compact ? input.registrationUrl || undefined : input.registrationUrl,
         });
         eventSchema.parse({ ...details, id: details.targetId || 'pending', timezone: TZ, sample: false,
           status: 'confirmed', lastVerified: decision.at, updatedAt: decision.at });
@@ -148,8 +219,23 @@ export class Moderation {
       }
       const publication = this.publication;
       requireReview(publication, 'GitHub publication is disabled.');
-      if (action === 'prepare') {
-        requireReview(!release, 'Clear or complete the current proposal first.');
+      if (action === 'prepare' || action === 'submit') {
+        if (action === 'submit' && release && !release.staged && !release.authorizedAt) {
+          requireReview(release.id === form.get('proposal'), 'The proposal changed. Reload before submitting.');
+          release.staged = await publication.stage(release);
+          save();
+          return;
+        }
+        if (release) {
+          requireReview(action === 'submit' && release.id === form.get('proposal') && release.staged &&
+            release.authorizedAt && release.authorizedBy && release.dispatched,
+          'Clear or complete the current proposal first.');
+          const run = await publication.deployment(release.staged);
+          requireReview(run?.status === 'completed' && run.conclusion === 'success',
+            'The current release must finish deploying before another batch can start.');
+          (state.history ??= []).push({ sha: release.staged.sha, authorizedAt: release.authorizedAt,
+            authorizedBy: release.authorizedBy, outcome: 'deployed' });
+        }
         const base = await publication.main();
         const approvals = Object.entries(state.decisions).filter(([, decision]) =>
           decision.status === 'approved' && decision.approval?.base === base);
@@ -159,6 +245,10 @@ export class Moderation {
         requireReview(changes.length, 'The approvals produce no catalog changes.');
         state.release = { id: digest(base + content), base, changes, content, keys: approvals.map(([key]) => key), createdAt: now.toISOString() };
         save();
+        if (action === 'submit') {
+          state.release.staged = await publication.stage(state.release);
+          save();
+        }
         return;
       }
       requireReview(release && release.id === form.get('proposal'), 'The proposal changed. Reload before submitting.');

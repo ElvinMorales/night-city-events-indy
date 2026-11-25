@@ -14,12 +14,13 @@ export function requireReview(value: unknown, message: string): asserts value {
   if (!value) throw new ReviewError(message);
 }
 
-const organizerUrl = z.url().refine(value => {
-  const url = new URL(value);
+export const organizerUrl = z.string().refine(value => {
+  const url = URL.parse(value);
+  if (!url) return false;
   const host = url.hostname.replace(/\.$/, '');
   return url.protocol === 'https:' && !url.username && !url.password && url.port === ''
     && /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(host)
-    && !/(^|\.)(tavernfinder\.com|localhost|local|internal|ts\.net)$/i.test(host);
+    && !/(^|\.)(tavernfinder\.com|localhost|local|internal|ts\.net|example\.(com|net|org)|test|invalid)$/i.test(host);
 }, 'Enter a public HTTPS organizer or registration URL independent of TavernFinder.');
 const wallTime = z.iso.datetime({ offset: true }).refine(value => {
   const seconds = value.replace(/(T\d\d:\d\d)(?=[+-])/, '$1:00');
@@ -29,18 +30,18 @@ const wallTime = z.iso.datetime({ offset: true }).refine(value => {
 export const verifiedDetails = z.strictObject({
   targetId: z.string().regex(/^(?:[a-zA-Z0-9_-]+)?$/),
   name: z.string().trim().min(3).max(200),
-  type: z.enum(types),
+  type: z.enum(types).optional(),
   venue: z.string().trim().min(1).max(200),
   address: z.string().trim().min(5).max(300),
   lat: z.number().min(-90).max(90),
   lng: z.number().min(-180).max(180),
   start: wallTime,
   end: wallTime.optional(),
-  format: z.string().trim().min(1).max(200),
+  format: z.string().trim().min(1).max(200).optional(),
   fee: z.string().trim().min(1).max(100).optional(),
   description: z.string().trim().max(1000),
   sourceUrl: organizerUrl,
-  registrationUrl: organizerUrl,
+  registrationUrl: organizerUrl.optional(),
 });
 
 export type Approval = {
